@@ -105,7 +105,7 @@ public class Queue {
     		current = current.getNext();
     	}
     	
-    	return result;
+    	return "\n" + result;
     } //end of toString
     
 } //end of class
