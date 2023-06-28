@@ -14,13 +14,19 @@ public class Module4_Wianecki_Assignment1 {
 		int custID = 0;
 		
 		//gets random customer arrival time
-		int custArrive = getRandomTime();
+		int custArrive;
 		
 		//variable for random customer wait time
 		int custWait;
 		
 		//variable to hold count for each iteration of minute and customer
-		int count = 1;
+		int countLoop = 1;
+                
+                //variable to hold count for each iteration of minute and customer
+		int countEnqueue = 0;
+                
+                //variable to hold count for each iteration of minute and customer
+		int countDequeue = 0;
 		
 		//will hold time for customer arrival
 		int custArriveTime = 0;
@@ -30,6 +36,8 @@ public class Module4_Wianecki_Assignment1 {
 		
 		//creates the queue for line
 		Queue line = new Queue();
+                
+                custArrive = getRandomTime();
 		
 		custArriveTime = custArrive;
 		
@@ -40,15 +48,13 @@ public class Module4_Wianecki_Assignment1 {
 			if(custArriveTime == time) {
 				
 				//add customer to queue
-				line.enqueue(custID + count);
-				custID += count;
+				line.enqueue(custID + countLoop);
+				custID += countLoop;
+                                countEnqueue += countLoop;
 				
 				//get random wait time for customers
 				custWait = getRandomTime();
 				custLeaveTime = custArriveTime + custWait;
-				
-				//get next customer arrival time
-				custArriveTime += custArrive;
 				
 			}
 			
@@ -57,6 +63,11 @@ public class Module4_Wianecki_Assignment1 {
 				
 				//remove customer from queue
 				line.dequeue();
+                                countDequeue += countLoop;
+                                
+                                //get next customer arrival time
+				custArrive = getRandomTime();
+                                custArriveTime = custArrive + custLeaveTime;
 				
 			}
 			
@@ -64,8 +75,10 @@ public class Module4_Wianecki_Assignment1 {
 			
 		} //end of for loop
 		
-		System.out.println("total time: " + totalTime);
+	System.out.println("Total time: " + totalTime);
         System.out.println("Number of customers in line: " + line.size());
+        System.out.println("Number of total customers added to line: " + countEnqueue);
+        System.out.println("Number of total customers removed from line: " + countDequeue);
 		
 	} //end of main
 	
